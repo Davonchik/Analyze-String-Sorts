@@ -3,9 +3,6 @@
 using s_iterator = std::vector<std::string>::iterator;
 
 char inline get(s_iterator from, int len) {
-    //if (len > from->length()) {
-    //    return '\0';
-    //}
     return (*from)[len];
 }
 
@@ -89,6 +86,30 @@ char inline getChecked(s_iterator a, int i, int len) {
     return '\0';
 }
 
+char inline getChecked(s_iterator s, int len) {
+    if (len < s->length()) {
+        return (*s)[len];
+    }
+    return '\0';
+}
+
+static s_iterator med3It(s_iterator from, s_iterator to, int len, size_t& cmp) {
+    s_iterator chars[] = {from, from + (to - from) / 2, to - 1};
+    if (getChecked(chars[1], len) < getChecked(chars[0], len)) {
+        std::swap(chars[1], chars[0]);
+        ++cmp;
+    }
+    if (getChecked(chars[2], len) < getChecked(chars[0], len)) {
+        std::swap(chars[2], chars[0]);
+        ++cmp;
+    }
+    if (getChecked(chars[2], len) < getChecked(chars[1], len)) {
+        ++cmp;
+        return chars[2];
+    }
+    return chars[1];
+}
+
 size_t StringTernaryQuickSortPrinceton(s_iterator a, int lo, int hi, int d) {
     if (hi - lo <= 0) {
         return 0;
@@ -99,7 +120,9 @@ size_t StringTernaryQuickSortPrinceton(s_iterator a, int lo, int hi, int d) {
     int i = lo - 1;
     int j = hi;
     int p = lo - 1, q = hi;
-    char v = a[hi][d];
+    auto v_it = med3It(a + lo, a + hi + 1, d, comparsions);
+    std::iter_swap(v_it, a + hi);
+    char v = getChecked(a, hi, d);
 
     while (i < j) {
         while (getChecked(a, ++i, d) < v) ++comparsions;

@@ -21,7 +21,7 @@ def plot_test_results(test_dir, test_name):
         "ClassicMergeSort",
         "ClassicQuickSort",
         "StringMergeSort",
-       # "StringTernaryQuickSort",
+        #"StringTernaryQuickSort",
         "StringTernaryQuickSortPrinceton",
         "MsdStringSort",
         "MsdQuickStringSort",

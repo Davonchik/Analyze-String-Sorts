@@ -1,6 +1,6 @@
 #include "QuickSort.h"
 #include "cmp.h"
-#include <utility> 
+#include <utility>  // std::swap
 #include <algorithm>
 
 using s_iterator = std::vector<std::string>::iterator;
@@ -19,6 +19,7 @@ static s_iterator med3(s_iterator from, s_iterator to, size_t& cmp) {
     return strs[1];
 }
 
+// ------------------------- quickSort -------------------------
 size_t quickSort(std::vector<std::string>::iterator begin, std::vector<std::string>::iterator end) {
     
     if (end - begin <= 1)
